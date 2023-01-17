@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Controllers/all_post_screen_controller.dart';
 import '../../Model Classes/all_post_model_class.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 class PostScreen extends StatelessWidget {
   const PostScreen({Key? key}) : super(key: key);
 
@@ -57,7 +57,7 @@ class PostScreen extends StatelessWidget {
                                                     MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Text(
-                                                        "Name",
+                                                        details.id,
                                                         style: const TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 16),
@@ -76,9 +76,7 @@ class PostScreen extends StatelessWidget {
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.all(10.0),
-                                              child: Container(
-                                                child: Text(details.post,textAlign: TextAlign.justify,),
-                                              ),
+                                              child: Text(details.post,textAlign: TextAlign.justify,),
                                             ),
                                             Container(
                                               padding: const EdgeInsets.all(8),
@@ -95,7 +93,7 @@ class PostScreen extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                                 children: const [
                                                   Text("Likes Count"),
-                                                  Text("Commennts Count"),
+                                                  Text("Comments Count"),
                                                 ],
                                               ),
                                             ),
@@ -139,7 +137,12 @@ class PostScreen extends StatelessWidget {
                                         );
                                       });
                           }
-                        return const CircularProgressIndicator();
+                        return const Center(
+                          child:  SpinKitChasingDots(
+                            color: Colors.blue,
+                            size: 50.0,
+                          ),
+                        );
                       }
                     );
           }),

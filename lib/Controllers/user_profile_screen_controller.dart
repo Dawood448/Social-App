@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class ProfileScreenController extends GetxController {
   String imageUpdateKey = "imageUpdatekey";
   PickUserCover() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.camera);
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       CroppedFile? croppedFile = await ImageCropper().cropImage(
         sourcePath: image.path,
@@ -82,7 +81,7 @@ class ProfileScreenController extends GetxController {
   String imageUpdateKeyOne = "imageUpdate";
   PickUserProfile() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? imageO = await picker.pickImage(source: ImageSource.camera);
+    final XFile? imageO = await picker.pickImage(source: ImageSource.gallery);
     if (imageO != null) {
       CroppedFile? croppedFile = await ImageCropper().cropImage(
         sourcePath: imageO.path,

@@ -46,7 +46,6 @@ class LoginScreenController extends GetxController {
   /////////////////////////////////////
   bool? isChecked = false;
 
-
   void handelRememberMe(bool? value) {
     isChecked = value;
     SharedPreferences.getInstance().then(
@@ -56,8 +55,7 @@ class LoginScreenController extends GetxController {
         prefs.setString('password', passController.text);
       },
     );
-      isChecked = value.obs
-      as bool?;
+      isChecked=value;
   }
 
 
@@ -71,7 +69,7 @@ class LoginScreenController extends GetxController {
       print(_email);
       print(_password);
       if (_remeberMe) {
-          isChecked = true.obs as bool?;
+          isChecked = true;
 
         emailController.text = _email ?? "";
         passController.text = _password ?? "";

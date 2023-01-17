@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'Screens/chat_screen.dart';
 import 'Screens/create_post_screen.dart';
 import 'Screens/current_user_profile_screen.dart';
+import 'chat/chat_user_list_screen.dart';
 class TabBarScreen extends StatelessWidget {
   const TabBarScreen({Key? key}) : super(key: key);
 
@@ -35,10 +36,10 @@ class TabBarScreen extends StatelessWidget {
               ]),
         ),
         body:
-                 const TabBarView(
+                  const TabBarView(
                   children: [
                     PostScreen(),
-                    ChatPage(),
+                    ChatUserListScreen(),
                     ProfileScreen(),
                     CurrentProfileScreen(),
               ]),

@@ -1,33 +1,37 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/date_symbol_data_local.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+  final types.User receiverUser;
+  const ChatPage({super.key,required this.receiverUser});
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
   List<types.Message> _messages = [];
-  final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac',);
+  late types.User _user;
+
   @override
   void initState() {
     super.initState();
+    loadCurrentUser();
     _loadMessages();
   }
+
   @override
   Widget build(BuildContext context) =>
       Scaffold(
@@ -46,14 +50,32 @@ class _ChatPageState extends State<ChatPage> {
       user: _user,
     ),
   );
-
+  ///////////////////////////////////////////
+  void loadCurrentUser() {
+    User? fbCurrentUser = FirebaseAuth.instance.currentUser;
+    _user =
+        types.User(
+          id: fbCurrentUser?.uid ?? "na",
+          firstName: "Ali",
+          imageUrl: "",
+        );
+  }
+///////////////////////////////////
   void _addMessage(types.Message message) {
     setState(() {
       _messages.insert(0, message);
     });
+    _addMessageToFirebase(message);
+  }
+  ////////////////////////////////////////////////
+  _addMessageToFirebase(types.Message message) async {
+    CollectionReference chatReference =
+    FirebaseFirestore.instance.collection("chat");
+
+    chatReference.add(message.toJson());
   }
 
-
+////////////////////////////////////////////////
   void _handleAttachmentPressed() {
     showModalBottomSheet<void>(
       context: context,
@@ -96,7 +118,7 @@ class _ChatPageState extends State<ChatPage> {
       ),
     );
   }
-
+/////////////////////////////////////////////////////
   void _handleFileSelection() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.any,
@@ -116,7 +138,7 @@ class _ChatPageState extends State<ChatPage> {
       _addMessage(message);
     }
   }
-
+////////////////////////////////////////////////////////
   void _handleImageSelection() async {
     final result = await ImagePicker().pickImage(
       imageQuality: 70,
@@ -142,7 +164,7 @@ class _ChatPageState extends State<ChatPage> {
       _addMessage(message);
     }
   }
-
+//////////////////////////////////////////////////////////
   void _handleMessageTap(BuildContext _, types.Message message) async {
     if (message is types.FileMessage) {
       var localPath = message.uri;
@@ -185,7 +207,7 @@ class _ChatPageState extends State<ChatPage> {
       }
     }
   }
-
+/////////////////////////////////////////////////////////////////
   void _handlePreviewDataFetched(types.TextMessage message, types.PreviewData previewData,) {
     final index = _messages.indexWhere((element) => element.id == message.id);
     final updatedMessage = (_messages[index] as types.TextMessage).copyWith(
@@ -196,26 +218,33 @@ class _ChatPageState extends State<ChatPage> {
       _messages[index] = updatedMessage;
     });
   }
-
+/////////////////////////////////////////////////////
   void _handleSendPressed(types.PartialText message) {
     final textMessage = types.TextMessage(
-      author: _user,
-      createdAt: DateTime.now().millisecondsSinceEpoch,
-      id:"0",
-      text: message.text,
-    );
+        author: _user,
+        createdAt: DateTime.now().millisecondsSinceEpoch,
+        id: _user.id,
+        text: message.text,
+        remoteId: widget.receiverUser.id);
 
     _addMessage(textMessage);
   }
-
+///////////////////////////////////////////////////////
   void _loadMessages() async {
-    final response = await rootBundle.loadString('assets/messages.json');
-    final messages = (jsonDecode(response) as List)
-        .map((e) => types.Message.fromJson(e as Map<String, dynamic>))
-        .toList();
-
+    CollectionReference chatRef=FirebaseFirestore.instance.collection("chat");
+    chatRef
+    .where("remoteId",isEqualTo: widget.receiverUser.id)
+    .where("id", isEqualTo:_user.id)
+    .get()
+    .then((QuerySnapshot querySnapshot) {
+      for(var doc in querySnapshot.docs) {
+        Map<String,dynamic> docData=doc.data() as Map<String,dynamic>;
+        _messages.insert(0,types.Message.fromJson(docData));
+      }
+    }).onError((error, stackTrace) {
+      print("Error");
+    });
     setState(() {
-      _messages = messages;
     });
   }
 }
