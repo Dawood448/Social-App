@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../../Controllers/all_post_screen_controller.dart';
 import '../../Model Classes/all_post_model_class.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import 'comment_screen.dart';
 class PostScreen extends StatelessWidget {
   const PostScreen({Key? key}) : super(key: key);
 
@@ -117,7 +119,9 @@ class PostScreen extends StatelessWidget {
                                                     ),
                                                   ),
                                                   IconButton(
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      Get.to(const CommentScreen());
+                                                    },
                                                     icon: const Icon(
                                                       Icons.mode_comment_rounded,
                                                       color: Colors.black,

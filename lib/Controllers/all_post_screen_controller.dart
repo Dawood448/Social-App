@@ -8,6 +8,9 @@ class PostScreenController extends GetxController{
 
   CollectionReference getReference =
   FirebaseFirestore.instance.collection("Posts");
+  CollectionReference getUserRef =
+  FirebaseFirestore.instance.collection("users");
+
 
 
 

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,11 +8,12 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CreatePostScreenController extends GetxController {
+
   TextEditingController postController = TextEditingController();
   CollectionReference postRef = FirebaseFirestore.instance.collection("Posts");
+  ///////////////////////////////////////////
   String? imageUrl;
   CroppedFile? croppedFile;
-  ///////////////////////////////////////////
   Future createPost({
     required String text,
     required String dateTime,
@@ -24,7 +24,7 @@ class CreatePostScreenController extends GetxController {
       uid = user.uid;
     }
     if (croppedFile != null) {
-      postImage = File(croppedFile?.path ?? "");
+      postImage = File(croppedFile!.path ?? "");
       imageUrl = await uploadImagetoFirebaseStorageofPosts();
       update([imageUpdateKey, imageUrl!]);
       Map<String, dynamic> postData = {
@@ -77,26 +77,6 @@ class CreatePostScreenController extends GetxController {
           .ref()
           .child("UsersPostsPhoto/")
           .child("/$fileName");
-      //     User? user = FirebaseAuth.instance.currentUser;
-      //     CollectionReference usersReference =
-      //     FirebaseFirestore.instance.collection("Posts");
-      //     String uid = "";
-      //     debugPrint("uid:$uid");
-      //     if (user != null) {
-      //       uid = user.uid;
-      //     }
-      //     debugPrint("uid:$uid");
-      //     try {
-      //       DocumentReference currentUserReference = usersReference.doc(uid);
-      //       await currentUserReference.update({"PostImageUrl": imageUrl});
-      //       return true;
-      //     } on Exception catch (e) {
-      //       debugPrint(e.toString());
-      //       return false;
-      //     }
-      //   } on FirebaseException catch (e) {
-      //     debugPrint(e.message);
-      //   }
       await storageRef.putFile(postImage!);
       /////////////////////////////////Send image url to fireStore////////////////
       imageUrl = await storageRef.getDownloadURL();

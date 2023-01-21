@@ -1,6 +1,7 @@
 import 'dart:io';
-
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,19 +37,36 @@ class SignUpScreenController extends GetxController {
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       User? currentUser = credential.user;
-      if (currentUser != null) {
-        DocumentReference currentUserRefrence = userRef.doc(currentUser.uid);
-        Map<String, dynamic> userProfileData = {
-          "name": name.capitalize,
-          "phone": phone,
-          "email": email,
+      // if (currentUser != null) {
+      //   DocumentReference currentUserRefrence = userRef.doc(currentUser.uid);
+      //   Map<String, dynamic> userProfileData = {
+      //     "name": name.capitalize,
+      //     "phone": phone,
+      //     "email": email,
+      //     "uid": currentUser.uid,
+      //     "gender":gender,
+      //     "dob":dob,
+      //   };
+      //   await currentUserRefrence.set(userProfileData);
+      if(currentUser!=null) {
+        Map <String, dynamic> profileData = {
           "uid": currentUser.uid,
+          "name": name,
+          "email": email,
+          "phone": phone,
           "gender":gender,
           "dob":dob,
         };
-        await currentUserRefrence.set(userProfileData);
+        FirebaseChatCore.instance.createUserInFirestore(
+            types.User(
+              id: credential.user!.uid,
+              firstName: name,
+              metadata:profileData,
+            )
+        );
       }
       status = true;
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         debugPrint('The account already exists for that email.');
@@ -112,16 +130,6 @@ class SignUpScreenController extends GetxController {
     }
     if (value.contains('[a-zA-Z]')) {
       return "Enter a Valid Name";
-    }
-    return null;
-  }
-  ////////////////////////Validation for Phone No///////////////////////////
-  String? validatePhone(String? value) {
-    if (value == null || value.isEmpty) {
-      return "Enter Your Phone no";
-    }
-    if (value.isPhoneNumber) {
-      return "Enter a Valid Phone no";
     }
     return null;
   }

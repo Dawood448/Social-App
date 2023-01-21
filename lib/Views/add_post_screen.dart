@@ -5,9 +5,7 @@ class AddScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(
-      body: ListView(
-        shrinkWrap: true,
-        physics: const ScrollPhysics(),
+      body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -24,7 +22,7 @@ class AddScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {},
-                  child: Container(
+                  child: SizedBox(
                     width: 250,
                     height: 40,
                     child: Container(
@@ -43,11 +41,11 @@ class AddScreen extends StatelessWidget {
                     icon: const Icon(
                       Icons.image_search_rounded,
                       color: Colors.green,
-                    ))
+                    ),
+                ),
               ],
             ),
           ),
-
         ],
       ),
     ),

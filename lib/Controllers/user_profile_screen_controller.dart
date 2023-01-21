@@ -1,13 +1,11 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-
 
 class ProfileScreenController extends GetxController {
   // cover Image Pick and Crop
@@ -56,7 +54,7 @@ class ProfileScreenController extends GetxController {
       String imageUrl = await storageRef.getDownloadURL();
       User? user = FirebaseAuth.instance.currentUser;
       CollectionReference usersReference =
-          FirebaseFirestore.instance.collection("User");
+          FirebaseFirestore.instance.collection("users");
       String uid = "";
       debugPrint("uid:$uid");
       if (user != null) {
@@ -123,7 +121,7 @@ class ProfileScreenController extends GetxController {
       String imageUrl = await storageRef.getDownloadURL();
       User? user = FirebaseAuth.instance.currentUser;
       CollectionReference usersReference =
-          FirebaseFirestore.instance.collection("User");
+          FirebaseFirestore.instance.collection("users");
       String uid = "";
       debugPrint("uid:$uid");
       if (user != null) {
@@ -143,11 +141,8 @@ class ProfileScreenController extends GetxController {
     }
   }
 
-
   ///////////////////////////////////////////////////////////////////////////
 
 //   static User? user = FirebaseAuth.instance.currentUser;
-// CollectionReference userRef=FirebaseFirestore.instance.collection("User").where('uid',isEqualTo: user).get() as CollectionReference<Object?>;
-
-
+  CollectionReference userRef = FirebaseFirestore.instance.collection("users");
 }

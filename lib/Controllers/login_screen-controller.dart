@@ -1,8 +1,11 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'dart:core';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -27,13 +30,14 @@ class LoginScreenController extends GetxController {
         Get.snackbar("Successfully!", "You are logged in.",
             backgroundColor: Colors.purpleAccent,
             showProgressIndicator: true,
-            icon:  Icon(Icons.error,color: Colors.red,),
-            backgroundGradient: LinearGradient(colors: [
+            icon:  const Icon(Icons.error,color: Colors.red,),
+            backgroundGradient: const LinearGradient(colors: [
               Colors.purpleAccent,
               Colors.blue,
             ]));
       });
       status = true;
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -55,7 +59,9 @@ class LoginScreenController extends GetxController {
         prefs.setString('password', passController.text);
       },
     );
-      isChecked=value;
+    isChecked=value;
+    update();
+
   }
 
 

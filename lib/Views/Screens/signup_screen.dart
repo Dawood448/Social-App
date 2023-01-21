@@ -24,134 +24,117 @@ class SignUpScreen extends StatelessWidget {
                     Colors.purpleAccent,
                   ]),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(top: 12.0, left: 15),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Sign-Up",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 35,
-                              fontWeight: FontWeight.bold),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 12.0, left: 15),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "Sign-Up",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 35,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
-                    ),
-                    // GetBuilder<SignUpScreenController>(
-                    //     id: _.imageUpdateKey,
-                    //     builder: (logic) {
-                    //       return GestureDetector(
-                    //         onTap: () {
-                    //           _.SignUpImagePick();
-                    //         },
-                    //         child: CircleAvatar(
-                    //             radius: 90,
-                    //             child: logic.imageFile != null
-                    //                 ? Image.file(
-                    //                     logic.imageFile!,
-                    //                     fit: BoxFit.cover,
-                    //                   )
-                    //                 : const Center(
-                    //                     child: Text("Select Profile Image", style: TextStyle(fontSize: 18),),
-                    //                   ),
-                    //         ),
-                    //       );
-                    //     }),
-                    Form(
-                      key: _.globalKey,
-                      child: Column(
-                        children: [
-                          Kfield(
-                            label: "Name",
-                            hint: "Enter your name",
-                            suffIcon: const Icon(Icons.person_outline),
-                            controller: _.nameController,
-                            val: _.validateName,
-                          ),
-                          Kfield(
-                            label: "Email",
-                            hint: "abc@gmail.com",
-                            suffIcon: const Icon(Icons.email),
-                            controller: _.emailController,
-                            val: _.validateEmail,
-                          ),
-                          Kfield(
-                            label: "Password",
-                            suffIcon: const Icon(Icons.password),
-                            controller: _.passController,
-                            val: _.validatePassword,
-                          ),
-                          Kfield(
-                            label: "Phone",
-                            hint: "+92-300-1234567",
-                            suffIcon: const Icon(Icons.phone),
-                            controller: _.phoneController,
-                            //val: _.validatePhone,
-                          ),
-                          Kfield(label: "Gender",
-                              suffIcon: const Icon(Icons.transgender),
-                              controller: _.genderController),
-                          Kfield(label: "DoB",
-                              suffIcon: const Icon(Icons.data_thresholding),
-                              controller: _.dobController),
-                        ],
+                      Form(
+                        key: _.globalKey,
+                        child: Column(
+                          children: [
+                            Kfield(
+                              label: "Name",
+                              hint: "Enter your name",
+                              suffIcon: const Icon(Icons.person_outline),
+                              controller: _.nameController,
+                              val: _.validateName,
+                            ),
+                            Kfield(
+                              label: "Email",
+                              hint: "abc@gmail.com",
+                              suffIcon: const Icon(Icons.email),
+                              controller: _.emailController,
+                              val: _.validateEmail,
+                            ),
+                            Kfield(
+                              label: "Password",
+                              suffIcon: const Icon(Icons.password),
+                              controller: _.passController,
+                              val: _.validatePassword,
+                            ),
+                            Kfield(
+                              label: "Phone",
+                              hint: "+92-300-1234567",
+                              suffIcon: const Icon(Icons.phone),
+                              controller: _.phoneController,
+                            ),
+                            Kfield(
+                                label: "Gender",
+                                suffIcon: const Icon(Icons.transgender),
+                                controller: _.genderController),
+                            Kfield(
+                                label: "DoB",
+                                suffIcon: const Icon(Icons.data_thresholding),
+                                controller: _.dobController),
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      height: 80,
-                      width: Get.width * 0.6,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: const LinearGradient(colors: [
-                          Colors.purpleAccent,
-                          Colors.blue,
-                        ]),
-                      ),
-                      child: TextButton(
-                        onPressed: () async {
-                          if (_.globalKey.currentState!.validate()) {
-                            await _.SignUp(
+                      Container(
+                        height: 80,
+                        width: Get.width * 0.6,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: const LinearGradient(colors: [
+                            Colors.purpleAccent,
+                            Colors.blue,
+                          ]),
+                        ),
+                        child: TextButton(
+                          onPressed: () async {
+                            if (_.globalKey.currentState!.validate()) {
+                              await _.SignUp(
                                 name: _.nameController.text,
                                 email: _.emailController.text,
                                 password: _.passController.text,
                                 phone: _.phoneController.text,
-                            gender: _.genderController.text,
-                              dob: _.dobController.text,
-                            );
-                            Get.to(const LoginScreen());
-                          }
-                        },
-                        child: const Text(
-                          "Submit",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25),
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Already have a account?"),
-                        TextButton(
-                          onPressed: () {
-                            Get.to(const LoginScreen());
+                                gender: _.genderController.text,
+                                dob: _.dobController.text,
+                              );
+                              Get.offAll(const LoginScreen());
+                            }
                           },
                           child: const Text(
-                            "LOG-IN",
+                            "Submit",
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                            ),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25),
                           ),
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text("Already have a account?"),
+                          TextButton(
+                            onPressed: () {
+                              Get.to(const LoginScreen());
+                            },
+                            child: const Text(
+                              "LOG-IN",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -42,7 +42,18 @@ class CreatePostScreen extends StatelessWidget {
                 title: const Text(
                   "Name", style: TextStyle(color: Colors.black, fontSize: 20),),
                 subtitle: const Text(
-                  "Name", style: TextStyle(color: Colors.grey, fontSize: 16),),
+                  "Time", style: TextStyle(color: Colors.grey, fontSize: 16),),
+              ),
+              GestureDetector(
+                onTap: ()async{
+                    await _.PostImage(context);
+                },
+                child: SizedBox(
+                  width: Get.width,
+                  height: Get.height*0.2,
+                  child: _.postImage!=null? Image.file(_.postImage!,fit: BoxFit.cover,):
+                  const Center(child: Text("Select an image to post",style: TextStyle(color: Colors.blue),),),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -56,11 +67,12 @@ class CreatePostScreen extends StatelessWidget {
                   maxLines: 15,
                 ),
               ),
-              IconButton(onPressed: () {},
-                  icon: const Icon(Icons.camera, size: 50, color: Colors.green,)),
-              const SizedBox(height: 15,),
-              IconButton(onPressed: ()async {await _.PostImage(context);},
-                  icon: const Icon(Icons.image, size: 50, color: Colors.green,),),
+              // IconButton(onPressed: ()
+              // async
+              // {
+              //   await _.PostImage(context);
+              //   },
+              //     icon: const Icon(Icons.image, size: 50, color: Colors.green,),),
 
             ],
           ),
