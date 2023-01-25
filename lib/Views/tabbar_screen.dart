@@ -18,7 +18,7 @@ class TabBarScreen extends StatelessWidget {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           elevation: 0,
-          title: const Text("facebook",style: TextStyle(color: Colors.blueAccent,fontWeight: FontWeight.bold,fontSize: 30),),
+          title: const Text("youSocial",style: TextStyle(color: Colors.blueAccent,fontWeight: FontWeight.bold,fontSize: 30),),
           actions: [
             TextButton(onPressed: (){
               Get.to(const CreatePostScreen());

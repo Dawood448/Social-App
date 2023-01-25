@@ -11,7 +11,8 @@ class _AgoraScreenState extends State<AgoraScreen> {
     agoraConnectionData: AgoraConnectionData(
       appId: "f1af73814bd5424caa34bbfd66623dba",
       channelName: "test",
-      username: "user",rtmChannelName: 'test',
+      username: "user",
+      rtmChannelName: 'test',
     ),
   );
 
