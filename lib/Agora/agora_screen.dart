@@ -9,9 +9,9 @@ class AgoraScreen extends StatefulWidget {
 class _AgoraScreenState extends State<AgoraScreen> {
   final AgoraClient client = AgoraClient(
     agoraConnectionData: AgoraConnectionData(
-      appId: "847399c4f06d4619872f7e00ebbb9809",
+      appId: "f1af73814bd5424caa34bbfd66623dba",
       channelName: "test",
-      username: "user",
+      username: "user",rtmChannelName: 'test',
     ),
   );
 

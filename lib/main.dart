@@ -6,11 +6,8 @@ import 'package:social_app/Views/Screens/signup_screen.dart';
 
 void main()async
 {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {
