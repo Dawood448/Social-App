@@ -103,9 +103,7 @@ class _RoomsPageState extends State<RoomsPage> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => ChatPage(
-                              room: room,
-                            ),
+                            builder: (context) => ChatPage(room: room,),
                           ),
                         );
                       },

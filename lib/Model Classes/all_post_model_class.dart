@@ -22,15 +22,6 @@ class AllPostModel {
 
   });
 
-  // for post creation
-  AllPostModel.withoutId({
-    required this.uid,
-    required this.post,
-    required this.userImage,
-    required this.postImageUrl,
-    required this.dateTime,
-
-  });
   // when we read data from firebase this will be used for converting DocumentSnapshot to model object
   AllPostModel.fromDocumentSnapshot({required DocumentSnapshot doc}){
     Map<String,dynamic> data=doc.data() as Map<String,dynamic>;
@@ -43,19 +34,6 @@ class AllPostModel {
     commentsCount=data["commentsCount"]??0;
     dateTime=data["dateTime"]??DateTime.now().toString();
   }
-  ////////////////////////
-  // when we read data from firebase this will be used for converting DocumentSnapshot to model object
-  AllPostModel.fromFirestore( DocumentSnapshot doc)
-  {
-    uid=doc.get(uid);
-    post=doc.get(post);
-    postImageUrl=doc.get(postImageUrl);
-    dateTime=doc.get(dateTime.toString());
-    // userImage=data["userImage"]??'';
-    // likesCount=data["likesCount"]??0;
-    // commentsCount=data["commentsCount"]??0;
-  }
-  ///////////////////////////
   //////////////////////////////////////////
   // when we read data from firebase this will be used for converting DocumentSnapshot to model object
   AllPostModel.fromJson(Map<String,dynamic> doc,String id){

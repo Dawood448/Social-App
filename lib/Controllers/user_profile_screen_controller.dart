@@ -143,6 +143,7 @@ class ProfileScreenController extends GetxController {
 
   ///////////////////////////////////////////////////////////////////////////
 
-//   static User? user = FirebaseAuth.instance.currentUser;
-  CollectionReference userRef = FirebaseFirestore.instance.collection("users");
+  CollectionReference postRef = FirebaseFirestore.instance.collection("Posts");
+  User? user=FirebaseAuth.instance.currentUser;
+
 }

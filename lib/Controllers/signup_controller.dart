@@ -17,11 +17,7 @@ class SignUpScreenController extends GetxController {
   TextEditingController genderController = TextEditingController();
   TextEditingController dobController = TextEditingController();
 
-
-
-  //Data send to firebase with authentication of signUP
-  // static CollectionReference userRef =
-  //     FirebaseFirestore.instance.collection("User");
+  //////////////////////////////////////
   Future<bool> SignUp({
     required String name,
     required String email,
@@ -36,17 +32,6 @@ class SignUpScreenController extends GetxController {
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       User? currentUser = credential.user;
-      // if (currentUser != null) {
-      //   DocumentReference currentUserRefrence = userRef.doc(currentUser.uid);
-      //   Map<String, dynamic> userProfileData = {
-      //     "name": name.capitalize,
-      //     "phone": phone,
-      //     "email": email,
-      //     "uid": currentUser.uid,
-      //     "gender":gender,
-      //     "dob":dob,
-      //   };
-      //   await currentUserRefrence.set(userProfileData);
       if(currentUser!=null) {
         Map <String, dynamic> profileData = {
           "uid": currentUser.uid,
@@ -64,6 +49,14 @@ class SignUpScreenController extends GetxController {
             )
         );
       }
+      Get.snackbar("Successful", "Now you can login into your account",
+          animationDuration: const Duration(seconds: 3),
+          backgroundColor: Colors.purpleAccent,
+          padding: const EdgeInsets.all(10),
+          backgroundGradient:const LinearGradient(colors: [
+          Colors.purpleAccent,
+          Colors.blue,
+          ],));
       status = true;
 
     } on FirebaseAuthException catch (e) {
@@ -133,14 +126,4 @@ class SignUpScreenController extends GetxController {
     return null;
   }
 
-  //////////////////////Sign Up on pressed///////////////////////////
-  onPressedSignUp() {
-    Get.snackbar("Sucessfully Sign Up", "Sign Up Successful",
-        animationDuration: const Duration(seconds: 3),
-        backgroundColor: Colors.grey,
-        colorText: Colors.white,
-        padding: const EdgeInsets.all(10));
-    Get.defaultDialog(
-        title: "Status", content: const Text("Successfully Sign Up"));
-  }
 }

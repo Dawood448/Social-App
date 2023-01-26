@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../Chat/rooms.dart';
 import 'Screens/create_post_screen.dart';
 import 'Screens/current_user_profile_screen.dart';
+import 'Screens/login_screen.dart';
 class TabBarScreen extends StatelessWidget {
   const TabBarScreen({Key? key}) : super(key: key);
 
@@ -23,7 +24,9 @@ class TabBarScreen extends StatelessWidget {
             TextButton(onPressed: (){
               Get.to(const CreatePostScreen());
             }, child: const Text("Add Post")),
-            IconButton(onPressed: (){}, icon: const Icon(Icons.settings_applications_rounded,color: Colors.black,)),
+            IconButton(onPressed: (){
+              Get.offAll(const LoginScreen());
+            }, icon: const Icon(Icons.logout,color: Colors.black,)),
           ],
           bottom:  const TabBar(
               tabs: [

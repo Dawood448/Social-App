@@ -5,6 +5,13 @@ import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:social_app/Views/Screens/signup_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+
+getFcmToken()async
+{
+  String? token=await FirebaseMessaging.instance.getToken();
+  print("Tokeeeen:-   ${token}");
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -34,6 +41,7 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

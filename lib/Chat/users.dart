@@ -12,7 +12,7 @@ class UsersPage extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.black,
-          title: const Text('Online Users'),
+          title: const Text('Registered Users'),
         ),
         body: StreamBuilder <List<types.User>>
           (
