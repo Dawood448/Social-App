@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:social_app/Controllers/login_screen-controller.dart';
 import 'package:social_app/Views/Screens/signup_screen.dart';
 import 'package:social_app/Views/tabbar_screen.dart';
@@ -7,9 +8,14 @@ import 'package:get/get.dart';
 import '../../Widgest/triangle.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<LoginScreenController>(
