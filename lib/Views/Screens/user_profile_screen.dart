@@ -15,68 +15,73 @@ class ProfileScreen extends StatelessWidget {
             child: Scaffold(
               body: Column(
                 children: [
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      GetBuilder<ProfileScreenController>(
-                          id: _.imageUpdateKey,
-                          builder: (logic) {
-                            return GestureDetector(
-                              onTap: () async {
-                                await logic.PickUserCover();
-                                logic.uploadImagetoFirebaseStorageofCover(context);
-                              },
-                              child: SizedBox(
-                                width: Get.width,
-                                height: Get.height * .25,
-                                child: logic.coverImage != null
-                                    ? Image.file(
-                                        logic.coverImage!,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Image.network(
-                                        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"),
-                              ),
-                            );
-                          }),
-                      Positioned(
-                        bottom: -50,
-                        left: 20,
-                        child: GetBuilder<ProfileScreenController>(
-                            id: _.imageUpdateKeyOne,
-                            builder: (lo) {
-                              return GestureDetector(
-                                onTap: () async {
-                                  await lo.PickUserProfile();
-                                  lo.uploadImagetoFirebaseStorageofProfile(context);
-                                },
-                                child: Container(
-                                  height: 150,
-                                  width: 150,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.white),
-                                      borderRadius: BorderRadius.circular(80)),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(80),
-                                    child: lo.profileImage != null
+                  FutureBuilder(
+                    future: null,
+                    builder: (context, snapshot) {
+                      return Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          GetBuilder<ProfileScreenController>(
+                              id: _.imageUpdateKey,
+                              builder: (logic) {
+                                return GestureDetector(
+                                  onTap: () async {
+                                    await logic.PickUserCover();
+                                    logic.uploadImagetoFirebaseStorageofCover(context);
+                                  },
+                                  child: SizedBox(
+                                    width: Get.width,
+                                    height: Get.height * .25,
+                                    child: logic.coverImage != null
                                         ? Image.file(
-                                            lo.profileImage!,
-                                            fit: BoxFit.fitHeight,
+                                            logic.coverImage!,
+                                            fit: BoxFit.cover,
                                           )
-                                        : ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(40),
-                                            child: Image.network(
-                                              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
-                                              fit: BoxFit.contain,
-                                            ),
-                                          ),
+                                        : Image.network(
+                                            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"),
                                   ),
-                                ),
-                              );
-                            }),
-                      ),
-                    ],
+                                );
+                              }),
+                          Positioned(
+                            bottom: -50,
+                            left: 20,
+                            child: GetBuilder<ProfileScreenController>(
+                                id: _.imageUpdateKeyOne,
+                                builder: (lo) {
+                                  return GestureDetector(
+                                    onTap: () async {
+                                      await lo.PickUserProfile();
+                                      lo.uploadImagetoFirebaseStorageofProfile(context);
+                                    },
+                                    child: Container(
+                                      height: 150,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.white),
+                                          borderRadius: BorderRadius.circular(80)),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(80),
+                                        child: lo.profileImage != null
+                                            ? Image.file(
+                                                lo.profileImage!,
+                                                fit: BoxFit.fitHeight,
+                                              )
+                                            : ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
+                                                child: Image.network(
+                                                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          ),
+                        ],
+                      );
+                    }
                   ),
                   SizedBox(
                     height: Get.height * 0.06,
