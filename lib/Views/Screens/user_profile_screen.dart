@@ -142,13 +142,13 @@ class Sparate extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children:  [
-                                  Text(
+                                  const Text(
                                     "obj.name",
                                     style: TextStyle(color: Colors.black, fontSize: 16),
                                   ),
                                   Text(
                                     obj.dateTime,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 12,
                                     ),
